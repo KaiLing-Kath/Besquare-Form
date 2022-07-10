@@ -35,7 +35,7 @@ select {
   margin-bottom: 16px;
 }
 
-.btn-success {
+.btn-primary {
   background-color: green;
   color: white;
 }
@@ -47,4 +47,8 @@ select {
 
 .w-50 {
   width: 50%;
+}
+
+button {
+  width: 100%;
 }
