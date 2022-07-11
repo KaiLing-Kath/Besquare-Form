@@ -7,10 +7,10 @@ import "./App.css";
 export default function App() {
   //[items inside the component state, fuction called to update the items]
   //("default data")
-  const [name, setName] = React.useState<string>("");
-  const [age, setAge] = React.useState<string | undefined>("");
-  const [color, setColor] = React.useState<string | undefined>("red");
-  const [gender, setGender] = React.useState<string>("Female");
+  const [name, setName] = React.useState<string>("John");
+  const [age, setAge] = React.useState<string | undefined>("26");
+  const [color, setColor] = React.useState<string | undefined>("blue");
+  const [gender, setGender] = React.useState<string>("Male");
 
   const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -35,49 +35,65 @@ export default function App() {
 
   const isRadioSelected = (value: string): boolean => gender === value;
 
+  const showAlert = () => {
+    alert("Submitted");
+  };
   const resetInputField = () => {
     setName("");
     setAge("");
+    setColor("red");
+    setGender("Female");
+    alert("Cleared");
   };
 
   return (
     <div className="pa-16">
-      <form onSubmit={handleSubmit}>
-        <Input name="Name" value={name} onChange={changeName} />
-        <Input name="Age" value={age} onChange={changeAge} />
-        <div className="mb-16">
-          <label>Gender</label>
-          <div className="radiostyle">
-            <div>
-              <input
-                type="radio"
-                name="Gender"
-                value="Female"
-                onChange={changeGender}
-                checked={isRadioSelected("Female")}
-              />
-              <span>Female</span>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="Gender"
-                value="Male"
-                onChange={changeGender}
-                checked={isRadioSelected("Male")}
-              />
-              <span> Male</span>
+      <div className="pa-16-1">
+        <form onSubmit={handleSubmit}>
+          <Input name="Name" value={name} onChange={changeName} />
+          <Input name="Age" value={age} onChange={changeAge} />
+          <div className="mb-16">
+            <label>Gender</label>
+            <div className="radiostyle">
+              <div>
+                <input
+                  type="radio"
+                  name="Gender"
+                  value="Female"
+                  onChange={changeGender}
+                  checked={isRadioSelected("Female")}
+                />
+                <span>Female</span>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="Gender"
+                  value="Male"
+                  onChange={changeGender}
+                  checked={isRadioSelected("Male")}
+                />
+                <span> Male</span>
+              </div>
             </div>
           </div>
-        </div>
-        <Select name="Favourite Color" value={color} onChange={changeColor} />
-        <button type="submit" className="btn-primary mb-16">
-          Submit
-        </button>
-        <button onClick={resetInputField} className="btn-secondary">
-          Clear
-        </button>
-      </form>
+          <Select name="Favourite Color" value={color} onChange={changeColor} />
+          <button
+            onClick={showAlert}
+            type="submit"
+            className="btn-primary mb-16"
+          >
+            Submit
+          </button>
+          <button onClick={resetInputField} className="btn-secondary">
+            Clear
+          </button>
+        </form>
+      </div>
+      <div className="pa-16-2">
+        {name} is {age} years old, and {gender === "Female" ? "she" : "he"}{" "}
+        likes {color}.
+      </div>
     </div>
   );
 }
