@@ -14,7 +14,9 @@ input,
 select {
   width: 100%;
 }
-
+input[type="radio"] {
+  width: auto;
+}
 .d-flex {
   display: flex;
 }
@@ -33,6 +35,10 @@ select {
 
 .mb-16 {
   margin-bottom: 16px;
+}
+
+.radiostyle {
+  width: 100%;
 }
 
 .btn-primary {
