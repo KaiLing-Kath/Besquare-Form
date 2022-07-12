@@ -5,10 +5,11 @@ import "./App.css";
 export default function App() {
   //[items inside the component state, fuction called to update the items]
   //("default data")
-  const [name, setName] = React.useState<string>("John");
-  const [age, setAge] = React.useState<string | undefined>("26");
-  const [color, setColor] = React.useState<string | undefined>("blue");
-  const [gender, setGender] = React.useState<string>("Male");
+  const [name, setName] = React.useState<string>("");
+  const [age, setAge] = React.useState<string | undefined>("");
+  const [color, setColor] = React.useState<string | undefined>("red");
+  const [gender, setGender] = React.useState<string>("Female");
+  const [Text, setText] = React.useState<any>("");
 
   const changeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -31,28 +32,32 @@ export default function App() {
     setGender(event.target.value);
   };
 
-  const showAlert = () => {
-    alert("Submitted");
-  };
   const resetInputField = () => {
     setName("");
     setAge("");
     setColor("red");
     setGender("Female");
-    alert("Cleared");
+    setText("");
   };
 
   return (
     <div className="pa-16">
       <div className="pa-16-1">
         <form onSubmit={handleSubmit}>
+          <header>Fill the Form!</header>
           <Input name="Name" value={name} onChange={changeName} />
           <Input name="Age" value={age} onChange={changeAge} />
           <RadioInput name="Gender" onChange={changeGender} checked={gender} />
 
           <Select name="Favourite Color" value={color} onChange={changeColor} />
           <button
-            onClick={showAlert}
+            onClick={() =>
+              setText(
+                `${name} is ${age} years old, and ${
+                  gender === "Female" ? "she" : "he"
+                } likes ${color} .`
+              )
+            }
             type="submit"
             className="btn-primary mb-16"
           >
@@ -63,10 +68,7 @@ export default function App() {
           </button>
         </form>
       </div>
-      <div className="pa-16-2">
-        {name} is {age} years old, and {gender === "Female" ? "she" : "he"}{" "}
-        likes {color}.
-      </div>
+      <div className="pa-16-2">{Text}</div>
     </div>
   );
 }
@@ -86,7 +88,7 @@ const RadioInput = ({ name, onChange, checked }: InputRadioType) => {
         <div>
           <input
             type="radio"
-            name="Gender"
+            name={name}
             value="Female"
             onChange={onChange}
             checked={isRadioSelected("Female")}
@@ -96,7 +98,7 @@ const RadioInput = ({ name, onChange, checked }: InputRadioType) => {
         <div>
           <input
             type="radio"
-            name="Gender"
+            name={name}
             value="Male"
             onChange={onChange}
             checked={isRadioSelected("Male")}
