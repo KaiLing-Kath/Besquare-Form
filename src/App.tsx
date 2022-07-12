@@ -1,6 +1,4 @@
-import { getValue } from "@testing-library/user-event/dist/utils";
 import * as React from "react";
-import { useRef } from "react";
 
 import "./App.css";
 
@@ -33,8 +31,6 @@ export default function App() {
     setGender(event.target.value);
   };
 
-  const isRadioSelected = (value: string): boolean => gender === value;
-
   const showAlert = () => {
     alert("Submitted");
   };
@@ -52,31 +48,8 @@ export default function App() {
         <form onSubmit={handleSubmit}>
           <Input name="Name" value={name} onChange={changeName} />
           <Input name="Age" value={age} onChange={changeAge} />
-          <div className="mb-16">
-            <label>Gender</label>
-            <div className="radiostyle">
-              <div>
-                <input
-                  type="radio"
-                  name="Gender"
-                  value="Female"
-                  onChange={changeGender}
-                  checked={isRadioSelected("Female")}
-                />
-                <span>Female</span>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="Gender"
-                  value="Male"
-                  onChange={changeGender}
-                  checked={isRadioSelected("Male")}
-                />
-                <span> Male</span>
-              </div>
-            </div>
-          </div>
+          <RadioInput name="Gender" onChange={changeGender} checked={gender} />
+
           <Select name="Favourite Color" value={color} onChange={changeColor} />
           <button
             onClick={showAlert}
@@ -97,6 +70,43 @@ export default function App() {
     </div>
   );
 }
+
+type InputRadioType = {
+  name: string;
+  checked: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+const RadioInput = ({ name, onChange, checked }: InputRadioType) => {
+  const isRadioSelected = (value: string): boolean => checked === value;
+  return (
+    <div className="mb-16">
+      <label>{name}</label>
+      <div className="radiostyle">
+        <div>
+          <input
+            type="radio"
+            name="Gender"
+            value="Female"
+            onChange={onChange}
+            checked={isRadioSelected("Female")}
+          />
+          <span>Female</span>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="Gender"
+            value="Male"
+            onChange={onChange}
+            checked={isRadioSelected("Male")}
+          />
+          <span> Male</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 type InputType = {
   name: string;
